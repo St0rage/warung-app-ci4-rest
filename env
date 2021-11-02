@@ -14,13 +14,13 @@
 # ENVIRONMENT
 #--------------------------------------------------------------------
 
-# CI_ENVIRONMENT = production
+CI_ENVIRONMENT = development
 
 #--------------------------------------------------------------------
 # APP
 #--------------------------------------------------------------------
 
-# app.baseURL = ''
+app.baseURL = 'https://warung-rahmat-gas.herokuapp.com/'
 # app.forceGlobalSecureRequests = false
 
 # app.sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler'
@@ -37,11 +37,11 @@
 # DATABASE
 #--------------------------------------------------------------------
 
-# database.default.hostname = localhost
-# database.default.database = ci4
-# database.default.username = root
-# database.default.password = root
-# database.default.DBDriver = MySQLi
+database.default.hostname = eu-cdbr-west-01.cleardb.com
+database.default.database = heroku_b4c5c357ce2f9e1
+database.default.username = b89b5f20d4c615
+database.default.password = 99cb2ce8
+database.default.DBDriver = MySQLi
 # database.default.DBPrefix =
 
 # database.tests.hostname = localhost
