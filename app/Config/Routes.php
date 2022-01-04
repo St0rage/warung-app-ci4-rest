@@ -31,9 +31,17 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', function () {
-    throw new \CodeIgniter\Router\Exceptions\RedirectException('api/products');
-});
+// $routes->get('/', function () {
+//     throw new \CodeIgniter\Router\Exceptions\RedirectException('api/products');
+// });
+
+$routes->get('/', 'Home::index');
+$routes->get('addcategory', 'Home::addCategory');
+$routes->get('deletecategory', 'Home::deleteCategory');
+$routes->get('addproduct', 'Home::addProduct');
+$routes->get('updateproduct', 'Home::updateProduct');
+$routes->get('login', 'Home::login');
+
 
 $routes->get('api', function () {
     throw new \CodeIgniter\Router\Exceptions\RedirectException('api/products');
