@@ -35,13 +35,7 @@ $routes->setAutoRoute(true);
 //     throw new \CodeIgniter\Router\Exceptions\RedirectException('api/products');
 // });
 
-$routes->get('/', 'Home::index');
-$routes->get('addcategory', 'Home::addCategory');
-$routes->get('deletecategory', 'Home::deleteCategory');
-$routes->get('addproduct', 'Home::addProduct');
-$routes->get('updateproduct', 'Home::updateProduct');
-$routes->get('login', 'Home::login');
-
+$routes->get('/', 'Products::index');
 
 $routes->get('api', function () {
     throw new \CodeIgniter\Router\Exceptions\RedirectException('api/products');

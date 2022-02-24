@@ -1,8 +1,9 @@
 <?php
 
 use Firebase\JWT\JWT;
+use PhpParser\Node\Stmt\TryCatch;
 
-function verifyToken($token)
+function verifyToken($auth)
 {
     $publicKey = <<<EOD
     -----BEGIN PUBLIC KEY-----
@@ -16,15 +17,50 @@ function verifyToken($token)
     -----END PUBLIC KEY-----
     EOD;
 
-    if ($token) {
-        try {
-            $decoded = JWT::decode($token, $publicKey, array('RS256'));
+    if (!$auth->hasHeader("Authorization")) {
+        $response = [
+            'status' => 401,
+            'error' => true,
+            'message' => 'Akses Ditolak'
+        ];
 
-            if ($decoded) {
-                return true;
-            }
-        } catch (\Exception $e) {
-            return false;
-        }
+        return [false, $response];
     }
+
+    $token = $auth->header("Authorization")->getValue();
+
+    try {
+        $decoded = JWT::decode($token, $publicKey, array('RS256'));
+
+        if ($decoded) {
+            return [true];
+        }
+    } catch (\Exception $e) {
+        $response = [
+            'status' => 401,
+            'error' => true,
+            'message' => 'Akses Ditolak Token Tidak Valid'
+        ];
+        
+        return [false, $response];
+    }
+
+    // if ($token) {
+    //     try {
+    //         $decoded = JWT::decode($token, $publicKey, array('RS256'));
+
+    //         if ($decoded) {
+    //             return true;
+    //         }
+    //     } catch (\Exception $e) {
+    //         return false;
+    //         // $response = [
+    //         //     'status' => 401,
+    //         //     'error' => true,
+    //         //     'message' => 'Akses Ditolak Token Tidak Valid'
+    //         // ];
+        
+    //         // return [false, $response];
+    //     }
+    // }
 }
