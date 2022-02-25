@@ -486,11 +486,16 @@ class Products extends ResourceController
             return $this->respond($response, 400);
         } else {
             $data['created_at'] = $checkId['created_at'];
+            $data['id'] = $id;
 
             if (!isset($data['old_image'])) {
+                // jika gambar tidak diubah
+                // $data['image'] adalah link gambar
                 $image = explode('/', $data['image']);
                 $data['image'] = $image[count($image) - 1];
             } else {
+                // jika gambar diubah
+                // $data['image'] adalah base64
                 $oldImage = explode('/', $data['old_image']);
                 unset($data['old_image']);
                 $data['image'] = imgDecoding($data['image']);
@@ -504,7 +509,7 @@ class Products extends ResourceController
 
             if ($put > 0) {
                 $code = 201;
-                $message = "Produk" . $data['product_name'] . "berhasil diubah";
+                $message = "Produk " . $data['product_name'] . " berhasil diubah";
                 $response = [
                     'status' => $code,
                     'error' => false,
@@ -588,7 +593,7 @@ class Products extends ResourceController
                 'status' => $code,
                 'error' => false,
                 'data' => [
-                    'message' => 'Produk' . $prodName . 'Berhasil dihapus'
+                    'message' => 'Produk ' . $prodName . ' Berhasil dihapus'
                 ]
             ];
         } else {
