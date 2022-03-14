@@ -140,11 +140,16 @@ class ProductsModel extends Model
     {
         $builder = $this->db->table('products');
 
-        if ($data == '') {
-            $builder->limit(5, 0);
-        } else {
+        // if ($data == '') {
+        //     $builder->limit(5, 0);
+        // } else {
+        //     $builder->like('product_name', $data);
+        // }
+
+        if ($data != '') {
             $builder->like('product_name', $data);
         }
+        
         $builder->orderBy('updated_at', 'DESC');
         return $builder->get();
     }

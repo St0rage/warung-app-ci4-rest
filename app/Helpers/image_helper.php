@@ -27,3 +27,8 @@ function compressImg($filename)
         ->resize(250, 0, true, 'auto')
         ->save(FCPATH . 'img/' . $filename);
 }
+
+function generateImgUrl($imgTmp)
+{
+    return 'http://10.0.2.2/warung-app-ci4-rest/public/img/' . $imgTmp;
+}

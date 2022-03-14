@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Credentials: true');
 
 use CodeIgniter\RESTful\ResourceController;
@@ -21,29 +22,6 @@ class Products extends ResourceController
     public function index()
     {
         // TOKEN VERIFY
-        // if (!$this->request->hasHeader("Authorization")) {
-        //     $response = [
-        //         'status' => 401,
-        //         'error' => true,
-        //         'message' => 'Akses Ditolak'
-        //     ];
-
-        //     return $this->respondCreated($response);
-        // } else {
-        //     $token = $this->request->header("Authorization");
-        // }
-
-        // $verify = verifyToken($token->getValue());
-
-        // if ($verify === false) {
-        //     $response = [
-        //         'status' => 401,
-        //         'error' => true,
-        //         'message' => 'Akses Ditolak Token Tidak Valid'
-        //     ];
-
-        //     return $this->respondCreated($response);
-        // }
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
@@ -65,7 +43,9 @@ class Products extends ResourceController
 
             for ($i = 0; $i < count($get); $i++) {
                 $imgTmp = $get[$i]['image'];
-                $get[$i]['image'] = base_url('img/' . $imgTmp);
+                // $get[$i]['image'] = base_url('img/' . $imgTmp);
+                $get[$i]['image'] = generateImgUrl($imgTmp);
+
 
                 $category = $categoriesModel->getProductCategory($get[$i]['id']);
                 $get[$i]['category'] = $category;
@@ -80,41 +60,18 @@ class Products extends ResourceController
             return $this->respond($response, 200);
         } else {
             $response = [
-                'status' => 404,
-                'error' => true,
+                'status' => 200,
+                'error' => false,
                 'data' => $get
             ];
 
-            return $this->respond($response, 404);
+            return $this->respond($response, 200);
         }
     }
 
     public function getSingleProduct($id)
     {
         // TOKEN VERIFY
-        // if (!$this->request->hasHeader("Authorization")) {
-        //     $response = [
-        //         'status' => 401,
-        //         'error' => true,
-        //         'message' => 'Akses Ditolak'
-        //     ];
-
-        //     return $this->respondCreated($response);
-        // } else {
-        //     $token = $this->request->header("Authorization");
-        // }
-
-        // $verify = verifyToken($token->getValue());
-
-        // if ($verify === false) {
-        //     $response = [
-        //         'status' => 401,
-        //         'error' => true,
-        //         'message' => 'Akses Ditolak Token Tidak Valid'
-        //     ];
-
-        //     return $this->respondCreated($response);
-        // }
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
@@ -129,7 +86,8 @@ class Products extends ResourceController
             $categoriesModel = new CategoriesModel();
 
             $imgTmp = $get['image'];
-            $get['image'] = base_url('img/' . $imgTmp);
+            // $get['image'] = base_url('img/' . $imgTmp);
+            $get['image'] = generateImgUrl($imgTmp);
             $category = $categoriesModel->getProductCategory($get['id']);
             $get['category'] = $category;
 
@@ -156,29 +114,6 @@ class Products extends ResourceController
     public function getProductByCategory($id)
     {
         // TOKEN VERIFY
-        // if (!$this->request->hasHeader("Authorization")) {
-        //     $response = [
-        //         'status' => 401,
-        //         'error' => true,
-        //         'message' => 'Akses Ditolak'
-        //     ];
-
-        //     return $this->respondCreated($response);
-        // } else {
-        //     $token = $this->request->header("Authorization");
-        // }
-
-        // $verify = verifyToken($token->getValue());
-
-        // if ($verify === false) {
-        //     $response = [
-        //         'status' => 401,
-        //         'error' => true,
-        //         'message' => 'Akses Ditolak Token Tidak Valid'
-        //     ];
-
-        //     return $this->respondCreated($response);
-        // }
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
@@ -194,7 +129,9 @@ class Products extends ResourceController
 
             for ($i = 0; $i < count($get); $i++) {
                 $imgTmp = $get[$i]['image'];
-                $get[$i]['image'] = base_url('/img/' . $imgTmp);
+                // $get[$i]['image'] = base_url('/img/' . $imgTmp);
+                $get[$i]['image'] = generateImgUrl($imgTmp);
+                
 
                 $category = $categoriesModel->getProductCategory($get[$i]['id']);
                 $get[$i]['category'] = $category;
@@ -207,10 +144,10 @@ class Products extends ResourceController
                 'data' => $get
             ];
         } else {
-            $code = 404;
+            $code = 200;
             $response = [
                 'status' => $code,
-                'error' => true,
+                'error' => false,
                 'data' => $get
             ];
         }
@@ -221,29 +158,6 @@ class Products extends ResourceController
     public function countProduct()
     {
         // TOKEN VERIFY
-        // if (!$this->request->hasHeader("Authorization")) {
-        //     $response = [
-        //         'status' => 401,
-        //         'error' => true,
-        //         'message' => 'Akses Ditolak'
-        //     ];
-
-        //     return $this->respondCreated($response);
-        // } else {
-        //     $token = $this->request->header("Authorization");
-        // }
-
-        // $verify = verifyToken($token->getValue());
-
-        // if ($verify === false) {
-        //     $response = [
-        //         'status' => 401,
-        //         'error' => true,
-        //         'message' => 'Akses Ditolak Token Tidak Valid'
-        //     ];
-
-        //     return $this->respondCreated($response);
-        // }
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
@@ -265,29 +179,6 @@ class Products extends ResourceController
     public function countProductByCategory($id)
     {
         // TOKEN VERIFY
-        // if (!$this->request->hasHeader("Authorization")) {
-        //     $response = [
-        //         'status' => 401,
-        //         'error' => true,
-        //         'message' => 'Akses Ditolak'
-        //     ];
-
-        //     return $this->respondCreated($response);
-        // } else {
-        //     $token = $this->request->header("Authorization");
-        // }
-
-        // $verify = verifyToken($token->getValue());
-
-        // if ($verify === false) {
-        //     $response = [
-        //         'status' => 401,
-        //         'error' => true,
-        //         'message' => 'Akses Ditolak Token Tidak Valid'
-        //     ];
-
-        //     return $this->respondCreated($response);
-        // }
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
@@ -309,29 +200,6 @@ class Products extends ResourceController
     public function addProduct()
     {
         // TOKEN VERIFY
-        // if (!$this->request->hasHeader("Authorization")) {
-        //     $response = [
-        //         'status' => 401,
-        //         'error' => true,
-        //         'message' => 'Akses Ditolak'
-        //     ];
-
-        //     return $this->respondCreated($response);
-        // } else {
-        //     $token = $this->request->header("Authorization");
-        // }
-
-        // $verify = verifyToken($token->getValue());
-
-        // if ($verify === false) {
-        //     $response = [
-        //         'status' => 401,
-        //         'error' => true,
-        //         'message' => 'Akses Ditolak Token Tidak Valid'
-        //     ];
-
-        //     return $this->respondCreated($response);
-        // }
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
@@ -400,29 +268,6 @@ class Products extends ResourceController
     public function updateProduct($id)
     {
         // TOKEN VERIFY
-        // if (!$this->request->hasHeader("Authorization")) {
-        //     $response = [
-        //         'status' => 401,
-        //         'error' => true,
-        //         'message' => 'Akses Ditolak'
-        //     ];
-
-        //     return $this->respondCreated($response);
-        // } else {
-        //     $token = $this->request->header("Authorization");
-        // }
-
-        // $verify = verifyToken($token->getValue());
-
-        // if ($verify === false) {
-        //     $response = [
-        //         'status' => 401,
-        //         'error' => true,
-        //         'message' => 'Akses Ditolak Token Tidak Valid'
-        //     ];
-
-        //     return $this->respondCreated($response);
-        // }
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
@@ -535,29 +380,6 @@ class Products extends ResourceController
     public function deleteProduct($id)
     {
         // TOKEN VERIFY
-        // if (!$this->request->hasHeader("Authorization")) {
-        //     $response = [
-        //         'status' => 401,
-        //         'error' => true,
-        //         'message' => 'Akses Ditolak'
-        //     ];
-
-        //     return $this->respondCreated($response);
-        // } else {
-        //     $token = $this->request->header("Authorization");
-        // }
-
-        // $verify = verifyToken($token->getValue());
-
-        // if ($verify === false) {
-        //     $response = [
-        //         'status' => 401,
-        //         'error' => true,
-        //         'message' => 'Akses Ditolak Token Tidak Valid'
-        //     ];
-
-        //     return $this->respondCreated($response);
-        // }
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
@@ -614,29 +436,6 @@ class Products extends ResourceController
     public function searchProduct()
     {
         // TOKEN VERIFY
-        // if (!$this->request->hasHeader("Authorization")) {
-        //     $response = [
-        //         'status' => 401,
-        //         'error' => true,
-        //         'message' => 'Akses Ditolak'
-        //     ];
-
-        //     return $this->respondCreated($response);
-        // } else {
-        //     $token = $this->request->header("Authorization");
-        // }
-
-        // $verify = verifyToken($token->getValue());
-
-        // if ($verify === false) {
-        //     $response = [
-        //         'status' => 401,
-        //         'error' => true,
-        //         'message' => 'Akses Ditolak Token Tidak Valid'
-        //     ];
-
-        //     return $this->respondCreated($response);
-        // }
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
@@ -661,7 +460,9 @@ class Products extends ResourceController
 
             for ($i = 0; $i < count($search); $i++) {
                 $imgTmp = $search[$i]['image'];
-                $search[$i]['image'] = base_url('img/' . $imgTmp);
+                // $search[$i]['image'] = base_url('img/' . $imgTmp);
+                $search[$i]['image'] = generateImgUrl($imgTmp);
+
 
                 $category = $categoriesModel->getProductCategory($search[$i]['id']);
                 $search[$i]['category'] = $category;
@@ -676,9 +477,7 @@ class Products extends ResourceController
             $response = [
                 'status' => 200,
                 'error' => false,
-                'data' => [
-                    false
-                ]
+                'data' => []
             ];
         }
 
@@ -688,29 +487,6 @@ class Products extends ResourceController
     public function searchProductByCategory()
     {
         // TOKEN VERIFY
-        // if (!$this->request->hasHeader("Authorization")) {
-        //     $response = [
-        //         'status' => 401,
-        //         'error' => true,
-        //         'message' => 'Akses Ditolak'
-        //     ];
-
-        //     return $this->respondCreated($response);
-        // } else {
-        //     $token = $this->request->header("Authorization");
-        // }
-
-        // $verify = verifyToken($token->getValue());
-
-        // if ($verify === false) {
-        //     $response = [
-        //         'status' => 401,
-        //         'error' => true,
-        //         'message' => 'Akses Ditolak Token Tidak Valid'
-        //     ];
-
-        //     return $this->respondCreated($response);
-        // }
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
@@ -734,7 +510,9 @@ class Products extends ResourceController
 
             for ($i = 0; $i < count($search); $i++) {
                 $imgTmp = $search[$i]['image'];
-                $search[$i]['image'] = base_url('img/' . $imgTmp);
+                // $search[$i]['image'] = base_url('img/' . $imgTmp);
+                $search[$i]['image'] = generateImgUrl($imgTmp);
+                
 
                 $category = $categoriesModel->getProductCategory($search[$i]['id']);
                 $search[$i]['category'] = $category;
@@ -749,9 +527,7 @@ class Products extends ResourceController
             $response = [
                 'status' => 200,
                 'error' => false,
-                'data' => [
-                    false
-                ]
+                'data' => []
             ];
         }
 

@@ -2,6 +2,10 @@
 
 namespace App\Controllers;
 
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
+header('Access-Control-Allow-Credentials: true');
+
 use CodeIgniter\RESTful\ResourceController;
 
 class Categories extends ResourceController
@@ -17,33 +21,10 @@ class Categories extends ResourceController
     public function index()
     {
         // TOKEN VERIFY
-        // if (!$this->request->hasHeader("Authorization")) {
-        //     $response = [
-        //         'status' => 401,
-        //         'error' => true,
-        //         'message' => 'Akses Ditolak'
-        //     ];
-
-        //     return $this->respondCreated($response);
-        // } else {
-        //     $token = $this->request->header("Authorization");
-        // }
-
-        // $verify = verifyToken($token->getValue());
-
-        // if ($verify === false) {
-        //     $response = [
-        //         'status' => 401,
-        //         'error' => true,
-        //         'message' => 'Akses Ditolak Token Tidak Valid'
-        //     ];
-
-        //     return $this->respondCreated($response);
-        // }
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
-            return $this->respondCreated($auth[1]);
+            return $this->respond($auth[1], 401);
         }
         // END TOKEN VERIFY
 
@@ -59,45 +40,22 @@ class Categories extends ResourceController
             return $this->respond($response, 200);
         } else {
             $response = [
-                'status' => 404,
-                'error' => true,
+                'status' => 200,
+                'error' => false,
                 'data' => []
             ];
 
-            return $this->respond($response, 404);
+            return $this->respond($response, 200);
         }
     }
 
     public function create()
     {
         // TOKEN VERIFY
-        // if (!$this->request->hasHeader("Authorization")) {
-        //     $response = [
-        //         'status' => 401,
-        //         'error' => true,
-        //         'message' => 'Akses Ditolak'
-        //     ];
-
-        //     return $this->respondCreated($response);
-        // } else {
-        //     $token = $this->request->header("Authorization");
-        // }
-
-        // $verify = verifyToken($token->getValue());
-
-        // if ($verify === false) {
-        //     $response = [
-        //         'status' => 401,
-        //         'error' => true,
-        //         'message' => 'Akses Ditolak Token Tidak Valid'
-        //     ];
-
-        //     return $this->respondCreated($response);
-        // }
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
-            return $this->respondCreated($auth[1]);
+            return $this->respond($auth[1], 401);
         }
         // END TOKEN VERIFY
 
@@ -148,33 +106,10 @@ class Categories extends ResourceController
     public function remove($id = null)
     {
         // TOKEN VERIFY
-        // if (!$this->request->hasHeader("Authorization")) {
-        //     $response = [
-        //         'status' => 401,
-        //         'error' => true,
-        //         'message' => 'Akses Ditolak'
-        //     ];
-
-        //     return $this->respondCreated($response);
-        // } else {
-        //     $token = $this->request->header("Authorization");
-        // }
-
-        // $verify = verifyToken($token->getValue());
-
-        // if ($verify === false) {
-        //     $response = [
-        //         'status' => 401,
-        //         'error' => true,
-        //         'message' => 'Akses Ditolak Token Tidak Valid'
-        //     ];
-
-        //     return $this->respondCreated($response);
-        // }
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
-            return $this->respondCreated($auth[1]);
+            return $this->respond($auth[1], 401);
         }
         // END TOKEN VERIFY
 
