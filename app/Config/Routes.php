@@ -55,6 +55,17 @@ $routes->group("api", function ($routes) {
     $routes->get("categories", "Categories::index");
     $routes->post("categories", "Categories::create");
     $routes->delete("categories/(:segment)", "Categories::remove/$1");
+    // GAS
+    $routes->get("gas/notes/(:segment)", "GasNote::getAllNote/$1");
+    $routes->get("gas/notedetail/(:segment)", "GasNote::getDetail/$1");
+    $routes->get("gas/(:segment)", "Gas::getSingleGas/$1");
+    $routes->get("gas", "Gas::index");
+    $routes->put("gas/note/(:segment)", "GasNote::update/$1");
+    $routes->delete("gas/note/(:segment)", "GasNote::delete/$1");
+    $routes->put("gas/statusnote/(:segment)", "GasNote::statusUpdate/$1");
+    $routes->put("gas/(:segment)", "Gas::updateGasPrice/$1");
+    $routes->post("gas/create", "GasNote::create");
+    $routes->post("gas/searchnotes", "GasNote::searchNotes");
 });
 
 /*

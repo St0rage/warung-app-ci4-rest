@@ -1,7 +1,6 @@
 <?php
 
 use Firebase\JWT\JWT;
-use PhpParser\Node\Stmt\TryCatch;
 
 function verifyToken($auth)
 {

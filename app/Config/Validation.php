@@ -81,4 +81,25 @@ class Validation
             'img_check' => 'Yang Pilih Bukan Gambar'
         ]
     ];
+
+    public $gasCreate = [
+        'name' => 'required|min_length[4]',
+        'quantity' => 'required|numeric|greater_than[0]',
+        'gas_id' => 'required'
+    ];
+
+    public $gasCreate_errors = [
+        'name' => [
+            'required' => 'Nama Penitip Wajib diisi',
+            'min_length' => 'Minimal Panjang Nama 4 huruf'
+        ],
+        'quantity' => [
+            'required' => 'Kuantitas Wajib diisi',
+            'numeric' => 'Kuantitas Wajib berupa Angka',
+            'greater_than' => 'Kuantitas harus Minimal 1'
+        ],
+        'gas_id' => [
+            'required' => 'Pilih Jenis Gas',
+        ]
+    ];
 }

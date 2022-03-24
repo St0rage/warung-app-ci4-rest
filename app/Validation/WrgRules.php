@@ -71,4 +71,21 @@ class WrgRules
             }
         }
     }
+
+    public function qty_check($str, $id)
+    {
+        $db = \Config\Database::connect();
+
+        $builder = $db->table('gas_note');
+
+        $builder->select('gas_note.quantity');
+        $builder->where('id', $id);
+        $qty = $builder->get()->getRowArray();
+
+        if ($qty['quantity'] === $str) {
+            return false;
+        }
+
+        return true;
+    }
 }
