@@ -25,7 +25,7 @@ class GasNote extends ResourceController
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
-            return $this->respondCreated($auth[1]);
+            return $this->respond($auth[1], 401);
         }
         // END TOKEN VERIFY
 
@@ -47,7 +47,7 @@ class GasNote extends ResourceController
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
-            return $this->respondCreated($auth[1]);
+            return $this->respond($auth[1], 401);
         }
         // END TOKEN VERIFY
 
@@ -81,7 +81,7 @@ class GasNote extends ResourceController
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
-            return $this->respondCreated($auth[1]);
+            return $this->respond($auth[1], 401);
         }
         // END TOKEN VERIFY
 
@@ -152,7 +152,7 @@ class GasNote extends ResourceController
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
-            return $this->respondCreated($auth[1]);
+            return $this->respond($auth[1], 401);
         }
         // END TOKEN VERIFY
 
@@ -230,7 +230,7 @@ class GasNote extends ResourceController
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
-            return $this->respondCreated($auth[1]);
+            return $this->respond($auth[1], 401);
         }
         // END TOKEN VERIFY
 
@@ -267,7 +267,7 @@ class GasNote extends ResourceController
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
-            return $this->respondCreated($auth[1]);
+            return $this->respond($auth[1], 401);
         }
         // END TOKEN VERIFY
 
@@ -279,7 +279,7 @@ class GasNote extends ResourceController
             $response = [
                 'status' => $code,
                 'error' => false,
-                'message' => [
+                'data' => [
                     'message' => $message
                 ]
             ];
@@ -289,7 +289,7 @@ class GasNote extends ResourceController
             $response = [
                 'status' => $code,
                 'error' => true,
-                'message' => [
+                'data' => [
                     'message' => $message
                 ]
             ];
@@ -304,7 +304,7 @@ class GasNote extends ResourceController
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
-            return $this->respondCreated($auth[1]);
+            return $this->respond($auth[1], 401);
         }
         // END TOKEN VERIFY
 

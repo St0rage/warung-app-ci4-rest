@@ -25,9 +25,8 @@ class Products extends ResourceController
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
-            return $this->respondCreated($auth[1]);
+            return $this->respond($auth[1], 401);
         }
-            
         // END TOKEN VERIFY
 
         $products = [
@@ -75,7 +74,7 @@ class Products extends ResourceController
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
-            return $this->respondCreated($auth[1]);
+            return $this->respond($auth[1], 401);
         }
         // END TOKEN VERIFY
 
@@ -117,7 +116,7 @@ class Products extends ResourceController
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
-            return $this->respondCreated($auth[1]);
+            return $this->respond($auth[1], 401);
         }
         // END TOKEN VERIFY
 
@@ -161,7 +160,7 @@ class Products extends ResourceController
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
-            return $this->respondCreated($auth[1]);
+            return $this->respond($auth[1], 401);
         }
         // END TOKEN VERIFY
 
@@ -182,7 +181,7 @@ class Products extends ResourceController
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
-            return $this->respondCreated($auth[1]);
+            return $this->respond($auth[1], 401);
         }
         // END TOKEN VERIFY
 
@@ -203,7 +202,7 @@ class Products extends ResourceController
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
-            return $this->respondCreated($auth[1]);
+            return $this->respond($auth[1], 401);
         }
         // END TOKEN VERIFY
 
@@ -271,7 +270,7 @@ class Products extends ResourceController
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
-            return $this->respondCreated($auth[1]);
+            return $this->respond($auth[1], 401);
         }
         // END TOKEN VERIFY
 
@@ -383,7 +382,7 @@ class Products extends ResourceController
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
-            return $this->respondCreated($auth[1]);
+            return $this->respond($auth[1], 401);
         }
         // END TOKEN VERIFY
 
@@ -439,7 +438,7 @@ class Products extends ResourceController
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
-            return $this->respondCreated($auth[1]);
+            return $this->respond($auth[1], 401);
         }
         // END TOKEN VERIFY
 
@@ -490,7 +489,7 @@ class Products extends ResourceController
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
-            return $this->respondCreated($auth[1]);
+            return $this->respond($auth[1], 401);
         }
         // END TOKEN VERIFY
 

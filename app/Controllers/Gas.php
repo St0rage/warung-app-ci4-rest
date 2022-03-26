@@ -25,7 +25,7 @@ class Gas extends ResourceController
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
-            return $this->respondCreated($auth[1]);
+            return $this->respond($auth[1], 401);
         }
         // END TOKEN VERIFY
 
@@ -52,7 +52,7 @@ class Gas extends ResourceController
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
-            return $this->respondCreated($auth[1]);
+            return $this->respond($auth[1], 401);
         }
         // END TOKEN VERIFY
 
@@ -76,7 +76,7 @@ class Gas extends ResourceController
         $auth = verifyToken($this->request);
 
         if ($auth[0] == false) {
-            return $this->respondCreated($auth[1]);
+            return $this->respond($auth[1], 401);
         }
         // END TOKEN VERIFY
 
@@ -123,7 +123,7 @@ class Gas extends ResourceController
             ];
         } else {
             $code = 400;
-            $message = 'Harga gagal diubah';
+            $message = 'Harga tidak boleh sama dari sebelumnya';
             $response = [
                 'status' => $code,
                 'error' => true,
