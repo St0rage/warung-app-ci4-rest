@@ -14,20 +14,8 @@ class GasNote extends ResourceController
     protected $format = 'json';
     protected $modelName = 'App\Models\GasNoteModel';
 
-    public function __construct()
-    {
-        helper(['auth_helper']);
-    }
-
     public function getAllNote($status = 0)
     {
-        // TOKEN VERIFY
-        $auth = verifyToken($this->request);
-
-        if ($auth[0] == false) {
-            return $this->respond($auth[1], 401);
-        }
-        // END TOKEN VERIFY
 
         $get = $this->model->getAllNote($status);
 
@@ -43,13 +31,6 @@ class GasNote extends ResourceController
 
     public function getDetail($id = null)
     {
-        // TOKEN VERIFY
-        $auth = verifyToken($this->request);
-
-        if ($auth[0] == false) {
-            return $this->respond($auth[1], 401);
-        }
-        // END TOKEN VERIFY
 
         $get = $this->model->getDetail($id);
 
@@ -77,27 +58,42 @@ class GasNote extends ResourceController
 
     public function create()
     {
-        // TOKEN VERIFY
-        $auth = verifyToken($this->request);
-
-        if ($auth[0] == false) {
-            return $this->respond($auth[1], 401);
-        }
-        // END TOKEN VERIFY
 
         $validation = \Config\Services::validation();
 
-        $name = $this->request->getPost('name');
         $qty = $this->request->getPost('quantity');
         $gas_id = $this->request->getPost('gas_id');
+        $costumer_id = $this->request->getPost('costumer_id');
 
         $data = [
-            'name' => $name,
             'quantity' => $qty,
             'gas_id' => $gas_id,
+            'costumer_id' => $costumer_id
         ];
 
-        if (!$validation->run($data, 'gasCreate')) {
+        $validation->setRules(
+            [
+                'quantity' => 'required|numeric|greater_than[0]',
+                'costumer_id' => 'required|costumer_check',
+                'gas_id' => 'required'
+            ],
+            [
+                'quantity' => [
+                    'required' => 'Kuantitas Wajib diisi',
+                    'numeric' => 'Kuantitas Wajib berupa Angka',
+                    'greater_than' => 'Kuantitas harus Minimal 1'
+                ],
+                'costumer_id' => [
+                    'required' => 'Pilih Nama Pelanggan',
+                    'costumer_check' => 'Catatan dengan nama tersebut masih ada, selesaikan terlebih dahulu'
+                ],
+                'gas_id' => [
+                    'required' => 'Pilih Jenis Gas',
+                ]
+            ]
+        );
+
+        if (!$validation->run($data)) {
             $code = 400;
             $response = [
                 'status' => $code,
@@ -148,13 +144,6 @@ class GasNote extends ResourceController
 
     public function update($id = null)
     {
-        // TOKEN VERIFY
-        $auth = verifyToken($this->request);
-
-        if ($auth[0] == false) {
-            return $this->respond($auth[1], 401);
-        }
-        // END TOKEN VERIFY
 
         $validation = \Config\Services::validation();
 
@@ -226,13 +215,6 @@ class GasNote extends ResourceController
 
     public function statusUpdate($id = null)
     {
-        // TOKEN VERIFY
-        $auth = verifyToken($this->request);
-
-        if ($auth[0] == false) {
-            return $this->respond($auth[1], 401);
-        }
-        // END TOKEN VERIFY
 
         $put = $this->model->updateNoteStatus($id);
 
@@ -263,13 +245,6 @@ class GasNote extends ResourceController
 
     public function delete($id = null)
     {
-        // TOKEN VERIFY
-        $auth = verifyToken($this->request);
-
-        if ($auth[0] == false) {
-            return $this->respond($auth[1], 401);
-        }
-        // END TOKEN VERIFY
 
         $delete = $this->model->deleteNote($id);
         
@@ -300,13 +275,6 @@ class GasNote extends ResourceController
 
     public function searchNotes()
     {
-        // TOKEN VERIFY
-        $auth = verifyToken($this->request);
-
-        if ($auth[0] == false) {
-            return $this->respond($auth[1], 401);
-        }
-        // END TOKEN VERIFY
 
         $keyword = '';
         $status = $this->request->getPost('status');

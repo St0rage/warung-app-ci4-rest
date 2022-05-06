@@ -16,18 +16,11 @@ class Gas extends ResourceController
 
     public function __construct()
     {
-        helper(['gas_helper', 'auth_helper']);
+        helper('gas_helper');
     }
 
     public function index()
     {
-        // TOKEN VERIFY
-        $auth = verifyToken($this->request);
-
-        if ($auth[0] == false) {
-            return $this->respond($auth[1], 401);
-        }
-        // END TOKEN VERIFY
 
         $get = $this->model->getAll();
 
@@ -48,13 +41,6 @@ class Gas extends ResourceController
 
     public function getSingleGas($id)
     {   
-        // TOKEN VERIFY
-        $auth = verifyToken($this->request);
-
-        if ($auth[0] == false) {
-            return $this->respond($auth[1], 401);
-        }
-        // END TOKEN VERIFY
 
         $get = $this->model->getSingleGas($id);
 
@@ -72,13 +58,6 @@ class Gas extends ResourceController
 
     public function updateGasPrice($id) 
     {
-        // TOKEN VERIFY
-        $auth = verifyToken($this->request);
-
-        if ($auth[0] == false) {
-            return $this->respond($auth[1], 401);
-        }
-        // END TOKEN VERIFY
 
         $validation = \Config\Services::validation();
 

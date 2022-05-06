@@ -11,8 +11,8 @@ function updateTotal($gas_id)
     $gas_builder->select('price');
     $gas_builder->where('id', $gas_id);
     $getGasPrice = $gas_builder->get()->getRow();
+    
     // get_all_gas_notes
-
     $gas_note_builder->where('gas_id', $gas_id);
     $getAllNotes = $gas_note_builder->get()->getResultArray();
 

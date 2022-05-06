@@ -44,8 +44,9 @@ class GasNoteModel extends Model
     {
         $builder = $this->db->table('gas_note');
 
-        $builder->select('gas_note.id, gas_note.name, gas_note.quantity, gas_note.status, gas_note.created_at, gas_note.updated_at, gas_note.taken_at, gas.name as gas_name');
+        $builder->select('gas_note.id, gas_note.quantity, gas_note.status, gas_note.created_at, gas_note.updated_at, gas_note.taken_at, gas.name as gas_name, costumers.name as costumer_name');
         $builder->join('gas', 'gas_note.gas_id = gas.id');
+        $builder->join('costumers', 'gas_note.costumer_id = costumers.id');
         $builder->where('gas_note.status', $status);
         if ($status == 0) {
             $builder->orderBy('(FROM_UNIXTIME(created_at))', 'DESC');
@@ -60,8 +61,9 @@ class GasNoteModel extends Model
     {
         $builder = $this->db->table('gas_note');
 
-        $builder->select('gas_note.*, gas.name as gas_name, gas.price');
+        $builder->select('gas_note.*, gas.name as gas_name, gas.price, costumers.name as costumer_name');
         $builder->join('gas', 'gas_note.gas_id = gas.id');
+        $builder->join('costumers', 'gas_note.costumer_id = costumers.id');
         $builder->where('gas_note.id', $id);
 
         return $builder->get()->getResultArray();

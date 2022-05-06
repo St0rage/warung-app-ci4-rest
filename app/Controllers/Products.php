@@ -16,18 +16,11 @@ class Products extends ResourceController
 
     public function __construct()
     {
-        helper(['auth_helper', 'image_helper']);
+        helper('image_helper');
     }
 
     public function index()
     {
-        // TOKEN VERIFY
-        $auth = verifyToken($this->request);
-
-        if ($auth[0] == false) {
-            return $this->respond($auth[1], 401);
-        }
-        // END TOKEN VERIFY
 
         $products = [
             'limit' => $this->request->getVar('limit'),
@@ -70,13 +63,6 @@ class Products extends ResourceController
 
     public function getSingleProduct($id)
     {
-        // TOKEN VERIFY
-        $auth = verifyToken($this->request);
-
-        if ($auth[0] == false) {
-            return $this->respond($auth[1], 401);
-        }
-        // END TOKEN VERIFY
 
         $get = $this->model->getSingleProduct($id);
 
@@ -112,13 +98,6 @@ class Products extends ResourceController
 
     public function getProductByCategory($id)
     {
-        // TOKEN VERIFY
-        $auth = verifyToken($this->request);
-
-        if ($auth[0] == false) {
-            return $this->respond($auth[1], 401);
-        }
-        // END TOKEN VERIFY
 
         $get = $this->model->getProductByCategory($id);
 
@@ -156,13 +135,6 @@ class Products extends ResourceController
 
     public function countProduct()
     {
-        // TOKEN VERIFY
-        $auth = verifyToken($this->request);
-
-        if ($auth[0] == false) {
-            return $this->respond($auth[1], 401);
-        }
-        // END TOKEN VERIFY
 
         $get = $this->model->countAllProducts();
 
@@ -177,13 +149,6 @@ class Products extends ResourceController
 
     public function countProductByCategory($id)
     {
-        // TOKEN VERIFY
-        $auth = verifyToken($this->request);
-
-        if ($auth[0] == false) {
-            return $this->respond($auth[1], 401);
-        }
-        // END TOKEN VERIFY
 
         $get = $this->model->countProductsByCategory($id);
 
@@ -198,13 +163,6 @@ class Products extends ResourceController
 
     public function addProduct()
     {
-        // TOKEN VERIFY
-        $auth = verifyToken($this->request);
-
-        if ($auth[0] == false) {
-            return $this->respond($auth[1], 401);
-        }
-        // END TOKEN VERIFY
 
         $validation = \Config\Services::validation();
 
@@ -266,13 +224,6 @@ class Products extends ResourceController
 
     public function updateProduct($id)
     {
-        // TOKEN VERIFY
-        $auth = verifyToken($this->request);
-
-        if ($auth[0] == false) {
-            return $this->respond($auth[1], 401);
-        }
-        // END TOKEN VERIFY
 
         $checkId = $this->model->getSingleProduct($id);
 
@@ -378,13 +329,6 @@ class Products extends ResourceController
 
     public function deleteProduct($id)
     {
-        // TOKEN VERIFY
-        $auth = verifyToken($this->request);
-
-        if ($auth[0] == false) {
-            return $this->respond($auth[1], 401);
-        }
-        // END TOKEN VERIFY
 
         $checkId = $this->model->getSingleProduct($id);
 
@@ -434,13 +378,6 @@ class Products extends ResourceController
     // SEARCHING
     public function searchProduct()
     {
-        // TOKEN VERIFY
-        $auth = verifyToken($this->request);
-
-        if ($auth[0] == false) {
-            return $this->respond($auth[1], 401);
-        }
-        // END TOKEN VERIFY
 
         $categoriesModel = new CategoriesModel();
 
@@ -485,13 +422,6 @@ class Products extends ResourceController
 
     public function searchProductByCategory()
     {
-        // TOKEN VERIFY
-        $auth = verifyToken($this->request);
-
-        if ($auth[0] == false) {
-            return $this->respond($auth[1], 401);
-        }
-        // END TOKEN VERIFY
 
         $categoriesModel = new CategoriesModel();
 

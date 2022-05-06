@@ -13,20 +13,8 @@ class Categories extends ResourceController
     protected $format = 'json';
     protected $modelName = 'App\Models\CategoriesModel';
 
-    public function __construct()
-    {
-        helper('auth_helper');
-    }
-
     public function index()
     {
-        // TOKEN VERIFY
-        $auth = verifyToken($this->request);
-
-        if ($auth[0] == false) {
-            return $this->respond($auth[1], 401);
-        }
-        // END TOKEN VERIFY
 
         $get = $this->model->getAll();
 
@@ -51,13 +39,6 @@ class Categories extends ResourceController
 
     public function create()
     {
-        // TOKEN VERIFY
-        $auth = verifyToken($this->request);
-
-        if ($auth[0] == false) {
-            return $this->respond($auth[1], 401);
-        }
-        // END TOKEN VERIFY
 
         $validation = \Config\Services::validation();
 
@@ -105,13 +86,6 @@ class Categories extends ResourceController
 
     public function remove($id = null)
     {
-        // TOKEN VERIFY
-        $auth = verifyToken($this->request);
-
-        if ($auth[0] == false) {
-            return $this->respond($auth[1], 401);
-        }
-        // END TOKEN VERIFY
 
         $delete = $this->model->deleteCategory($id);
         if ($delete > 0) {

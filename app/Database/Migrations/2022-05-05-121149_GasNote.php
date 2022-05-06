@@ -16,10 +16,11 @@ class GasNote extends Migration
                 'auto_increment' => true,
                 'null' => false
             ],
-            'name' => [
-                'type' => 'VARCHAR',
-                'constraint' => 100,
-                'null' => false
+            'costumer_id' => [
+                'type' => 'INT',
+                'constraint' => 11,
+                'null' => false,
+                'unsigned' => true
             ],
             'gas_id' => [
                 'type' => 'INT',
@@ -61,6 +62,7 @@ class GasNote extends Migration
         ]);
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('gas_id', 'gas', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('costumer_id', 'costumers', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('gas_note');
     }
 

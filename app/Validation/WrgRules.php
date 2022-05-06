@@ -2,6 +2,8 @@
 
 namespace App\Validation;
 
+use phpDocumentor\Reflection\Types\Null_;
+
 class WrgRules
 {
     public function price_check($str = null)
@@ -87,5 +89,32 @@ class WrgRules
         }
 
         return true;
+    }
+
+    public function costumer_check($str)
+    {
+        $db = \Config\Database::connect();
+
+        $builder = $db->table('gas_note');
+
+        // $get = $builder->where('costumer_id', $costumer_id)->get()->getRowArray();
+
+        $builder->where('costumer_id', $str);
+        $builder->orderBy('id', 'DESC');
+        $builder->limit(1);
+
+        $get = $builder->get()->getRowArray();
+
+        if ($get !== NULL) {
+            if ($get['status'] == 0 && $get['costumer_id'] == $str) {
+                return false;
+            } else if ($get['status'] == 1 && $get['costumer_id'] == $str) {
+                return true;
+            }
+        } else {
+            return true;
+        }
+
+
     }
 }
