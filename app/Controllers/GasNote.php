@@ -260,7 +260,7 @@ class GasNote extends ResourceController
             ];
         } else {
             $code = 400;
-            $message = 'Catatan gagal dihapus';
+            $message = 'Catatan gagal dihapus / tidak ditemukan';
             $response = [
                 'status' => $code,
                 'error' => true,

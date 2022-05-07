@@ -57,4 +57,13 @@ class CostumersModel extends Model
 
         return $this->db->affectedRows();
     }
+
+    public function deleteCostumer($id)
+    {
+        $builder = $this->db->table('costumers');
+
+        $builder->delete(['id' => $id]);
+
+        return $this->db->affectedRows();
+    }
 }

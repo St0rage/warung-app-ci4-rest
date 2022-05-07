@@ -79,4 +79,32 @@ class Costumers extends ResourceController
 
         return $this->respond($response, $code);
     }
+
+    public function delete($id = null)
+    {
+        $delete = $this->model->deleteCostumer($id);
+
+        if ($delete > 0) {
+            $code = 200;
+            $response = [
+                'status' => $code,
+                'error' => false,
+                'data' => [
+                    'message' => 'Pelanggan Berhasil dihapus'
+                ]
+            ];
+        } else {
+            $code = 404;
+            $response = [
+                'status' => $code,
+                'error' => true,
+                'data' => [
+                    'message' => 'Pelanggan gagal dihapus / tidak ditemukan'
+                ]
+            ];
+        }
+
+        return $this->respond($response, $code);
+
+    }
 }

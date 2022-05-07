@@ -63,6 +63,7 @@ $routes->group("api", function ($routes) {
     $routes->get("gas/(:segment)", "Gas::getSingleGas/$1");
     $routes->put("gas/note/(:segment)", "GasNote::update/$1");
     $routes->delete("gas/note/(:segment)", "GasNote::delete/$1");
+    $routes->delete("gas/costumers/(:segment)", "Costumers::delete/$1");
     $routes->put("gas/statusnote/(:segment)", "GasNote::statusUpdate/$1");
     $routes->put("gas/(:segment)", "Gas::updateGasPrice/$1");
     $routes->post("gas/costumers", "Costumers::addCostumer");
