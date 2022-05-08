@@ -63,8 +63,16 @@ class CostumersModel extends Model
     {
         $builder = $this->db->table('costumers');
 
-        $builder->delete(['id' => $id]);
+        $gasNoteModel = new GasNoteModel();
+        $checkNote = $gasNoteModel->checkNote($id);
 
-        return $this->db->affectedRows();
+        if ($checkNote > 0) {
+            return 0;
+        } else {
+            $builder->delete(['id' => $id]);
+    
+            return $this->db->affectedRows();
+        }
+
     }
 }

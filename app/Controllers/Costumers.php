@@ -94,17 +94,15 @@ class Costumers extends ResourceController
                 ]
             ];
         } else {
-            $code = 404;
+            $code = 400;
             $response = [
                 'status' => $code,
                 'error' => true,
                 'data' => [
-                    'message' => 'Pelanggan gagal dihapus / tidak ditemukan'
+                    'message' => 'Pelanggan tersebut gagal dihapus / masih mempunyai catatan'
                 ]
             ];
         }
-
         return $this->respond($response, $code);
-
     }
 }
