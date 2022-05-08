@@ -74,7 +74,7 @@ class GasNote extends ResourceController
         $validation->setRules(
             [
                 'quantity' => 'required|numeric|greater_than[0]',
-                'costumer_id' => 'required|costumer_check',
+                'costumer_id' => 'required|costumer_check['. $gas_id .']',
                 'gas_id' => 'required'
             ],
             [

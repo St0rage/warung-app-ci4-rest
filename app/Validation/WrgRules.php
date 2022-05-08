@@ -91,7 +91,7 @@ class WrgRules
         return true;
     }
 
-    public function costumer_check($str)
+    public function costumer_check($str, $gas_id)
     {
         $db = \Config\Database::connect();
 
@@ -100,6 +100,7 @@ class WrgRules
         // $get = $builder->where('costumer_id', $costumer_id)->get()->getRowArray();
 
         $builder->where('costumer_id', $str);
+        $builder->where('gas_id', $gas_id);
         $builder->orderBy('id', 'DESC');
         $builder->limit(1);
 
@@ -111,6 +112,12 @@ class WrgRules
             } else if ($get['status'] == 1 && $get['costumer_id'] == $str) {
                 return true;
             }
+            
+            // else if ($get['status'] == 0 && $get['costumer_id'] == $str && $get['gas_id'] != $gas_id) {
+            //     return true;
+            // } else if ($get['status'] == 1 && $get['costumer_id'] == $str) {
+            //     return true;
+            // }
         } else {
             return true;
         }

@@ -44,6 +44,7 @@ class CostumersModel extends Model
     {
         $builder = $this->db->table('costumers');
 
+        $builder->orderBy('name', 'ASC');
         $query = $builder->get()->getResultArray();
 
         return $query;
