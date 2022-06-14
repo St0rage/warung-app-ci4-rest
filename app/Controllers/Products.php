@@ -288,7 +288,7 @@ class Products extends ResourceController
             $dateUpdate = new DateTime("now", new DateTimeZone("Asia/Jakarta"));
 
             $data['updated_at'] = $dateUpdate->format("Y-m-d H:i:s");
-
+            
             if (!isset($data['old_image'])) {
                 // jika gambar tidak diubah
                 // $data['image'] adalah link gambar
