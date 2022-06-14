@@ -8,6 +8,8 @@ header('Access-Control-Allow-Credentials: true');
 
 use CodeIgniter\RESTful\ResourceController;
 use App\Models\CategoriesModel;
+use DateTime;
+use DateTimeZone;
 
 class Products extends ResourceController
 {
@@ -282,6 +284,10 @@ class Products extends ResourceController
         } else {
             $data['created_at'] = $checkId['created_at'];
             $data['id'] = $id;
+
+            $dateUpdate = new DateTime("now", new DateTimeZone("Asia/Jakarta"));
+
+            $data['updated_at'] = $dateUpdate->format("Y-m-d H:i:s");
 
             if (!isset($data['old_image'])) {
                 // jika gambar tidak diubah
