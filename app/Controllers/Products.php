@@ -168,10 +168,13 @@ class Products extends ResourceController
 
         $validation = \Config\Services::validation();
 
+        $dateUpdate = new DateTime("now", new DateTimeZone("Asia/Jakarta"));
+
         $product_name = $this->request->getPost('product_name');
         $price = $this->request->getPost('price');
         $image = $this->request->getPost('image');
-        $created_at = date("Y-m-d");
+        $created_at = $dateUpdate->format("Y-m-d H:i:s");
+        $updated_at = $dateUpdate->format("Y-m-d H:i:s");
         $category_id = $this->request->getPost('category_id');
 
         $data = [
@@ -179,6 +182,7 @@ class Products extends ResourceController
             'price' => $price,
             'image' => $image,
             'created_at' => $created_at,
+            'updated_at' => $updated_at,
             'category_id' => $category_id,
         ];
 
