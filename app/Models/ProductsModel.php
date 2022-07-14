@@ -45,11 +45,11 @@ class ProductsModel extends Model
     protected $beforeDelete         = [];
     protected $afterDelete          = [];
 
-    public function getAll($products)
+    public function getAll($limit)
     {
         $builder = $this->db->table('products');
 
-        $builder->limit($products['limit'], $products['start']);
+        $builder->limit($limit['limit'], empty($limit['page']) ? 0 : $limit['page']);
         $builder->orderBy('updated_at', 'DESC');
         $query = $builder->get()->getResultArray();
 
@@ -61,13 +61,14 @@ class ProductsModel extends Model
         return $this->find($id);
     }
 
-    public function getProductByCategory($id)
+    public function getProductByCategory($id, $limit)
     {
         $builder = $this->db->table('products');
 
         $builder->select('products.*');
         $builder->join('product_categories', 'products.id = product_categories.product_id');
         $builder->where('product_categories.category_id', $id);
+        $builder->limit($limit['limit'], empty($limit['page']) ? 0 : $limit['page']);
         $builder->orderBy('products.created_at');
 
         return $builder->get()->getResultArray();
@@ -140,15 +141,15 @@ class ProductsModel extends Model
     {
         $builder = $this->db->table('products');
 
-        // if ($data == '') {
-        //     $builder->limit(5, 0);
-        // } else {
-        //     $builder->like('product_name', $data);
-        // }
-
-        if ($data != '') {
+        if ($data == '') {
+            $builder->limit(5, 0);
+        } else {
             $builder->like('product_name', $data);
         }
+
+        // if ($data != '') {
+        //     $builder->like('product_name', $data);
+        // }
         
         $builder->orderBy('updated_at', 'DESC');
         return $builder->get();
@@ -163,6 +164,8 @@ class ProductsModel extends Model
         $builder->where('product_categories.category_id', $id);
         if ($data != '') {
             $builder->like('products.product_name', $data);
+        } else {
+            $builder->limit(5, 0);
         }
         $builder->orderBy('created_at', 'DESC');
         return $builder->get();

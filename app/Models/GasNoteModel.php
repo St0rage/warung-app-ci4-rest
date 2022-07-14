@@ -40,7 +40,7 @@ class GasNoteModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function getAllNote($status)
+    public function getAllNote($status, $limit)
     {
         $builder = $this->db->table('gas_note');
 
@@ -48,6 +48,7 @@ class GasNoteModel extends Model
         $builder->join('gas', 'gas_note.gas_id = gas.id');
         $builder->join('costumers', 'gas_note.costumer_id = costumers.id');
         $builder->where('gas_note.status', $status);
+        $builder->limit($limit['limit'], empty($limit['page']) ? 0 : $limit['page']);
         if ($status == 0) {
             $builder->orderBy('(FROM_UNIXTIME(created_at))', 'DESC');
         } else {

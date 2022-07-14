@@ -16,8 +16,12 @@ class GasNote extends ResourceController
 
     public function getAllNote($status = 0)
     {
+        $limit = [
+            'limit' => 5,
+            'page' => $this->request->getVar('page') * 5
+        ];
 
-        $get = $this->model->getAllNote($status);
+        $get = $this->model->getAllNote($status, $limit);
 
         $code = 200;
         $response = [

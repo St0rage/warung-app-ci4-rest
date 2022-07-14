@@ -30,5 +30,7 @@ function compressImg($filename)
 
 function generateImgUrl($imgTmp)
 {
-    return 'http://10.0.2.2/warung-app-ci4-rest/public/img/' . $imgTmp;
+    // return 'http://10.0.2.2/warung-app-ci4-rest/public/img/' . $imgTmp;
+
+    return base_url('/img/' . $imgTmp);
 }

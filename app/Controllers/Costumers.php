@@ -11,7 +11,7 @@ class Costumers extends ResourceController
 
     public function getAllCostumer()
     {
-        $get = $this->model->getAllCostumer();
+        $get = $this->model->getAllCostumer();  
 
         $response = [
             'status' => 200,

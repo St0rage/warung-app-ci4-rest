@@ -24,12 +24,12 @@ class Products extends ResourceController
     public function index()
     {
 
-        $products = [
-            'limit' => $this->request->getVar('limit'),
-            'start' => $this->request->getVar('start')
+        $limit = [
+            'limit' => 5,
+            'page' => $this->request->getVar('page') * 5
         ];
 
-        $get = $this->model->getAll($products);
+        $get = $this->model->getAll($limit);
 
         if ($get) {
 
@@ -101,7 +101,12 @@ class Products extends ResourceController
     public function getProductByCategory($id)
     {
 
-        $get = $this->model->getProductByCategory($id);
+        $limit = [
+            'limit' => 5,
+            'page' => $this->request->getVar('page') * 5
+        ];
+
+        $get = $this->model->getProductByCategory($id, $limit);
 
         if ($get) {
 
@@ -390,7 +395,7 @@ class Products extends ResourceController
     {
 
         $categoriesModel = new CategoriesModel();
-
+        
         $keyword = '';
 
         if ($this->request->getPost('keyword')) {
