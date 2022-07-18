@@ -69,7 +69,7 @@ class ProductsModel extends Model
         $builder->join('product_categories', 'products.id = product_categories.product_id');
         $builder->where('product_categories.category_id', $id);
         $builder->limit($limit['limit'], empty($limit['page']) ? 0 : $limit['page']);
-        $builder->orderBy('products.created_at');
+        $builder->orderBy('products.updated_at', 'DESC');
 
         return $builder->get()->getResultArray();
     }
@@ -167,7 +167,7 @@ class ProductsModel extends Model
         } else {
             $builder->limit(5, 0);
         }
-        $builder->orderBy('created_at', 'DESC');
+        $builder->orderBy('updated_at', 'DESC');
         return $builder->get();
     }
 }
