@@ -103,7 +103,7 @@ class Categories extends ResourceController
                 'status' => $code,
                 'error' => true,
                 'data' => [
-                    'message' => 'Kategori tidak ditemukan'
+                    'message' => 'Gagal, Masih Terdapat Produk Dengan Kategori Tersebut'
                 ]
             ];
         }

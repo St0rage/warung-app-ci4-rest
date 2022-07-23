@@ -62,4 +62,15 @@ class ProductCategoriesModel extends Model
 
         $this->addProductCategories($data, $prodId);
     }
+
+    public function checkProduct($id)
+    {
+        $builder = $this->db->table('product_categories');
+
+        $builder->select('product_categories.*');
+        $builder->join('categories', 'product_categories.category_id = categories.id');
+        $builder->where('product_categories.category_id', $id);
+
+        return $builder->get()->getNumRows();
+    }
 }

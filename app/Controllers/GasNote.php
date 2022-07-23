@@ -146,6 +146,19 @@ class GasNote extends ResourceController
 
     }
 
+    public function countNote($status = 0)
+    {
+        $get = $this->model->countNote($status);
+
+        $response = [
+            'status' => 200,
+            'error' => false,
+            'data' => $get
+        ];
+
+        return $this->respond($response, 200);
+    }
+
     public function update($id = null)
     {
 

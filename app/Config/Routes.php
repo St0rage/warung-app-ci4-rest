@@ -58,6 +58,7 @@ $routes->group("api", function ($routes) {
     // GAS
     $routes->get("gas/costumers", "Costumers::getAllCostumer");
     $routes->get("gas/notes/(:segment)", "GasNote::getAllNote/$1");
+    $routes->get("gas/notes/count/(:segment)", "GasNote::countNote/$1");
     $routes->get("gas/notedetail/(:segment)", "GasNote::getDetail/$1");
     $routes->get("gas", "Gas::index");
     $routes->get("gas/(:segment)", "Gas::getSingleGas/$1");

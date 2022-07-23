@@ -73,8 +73,15 @@ class CategoriesModel extends Model
     {
         $builder = $this->db->table('categories');
 
-        $builder->delete(['id' => $id]);
+        $productCategoriesModel = new ProductCategoriesModel();
+        $checkProduct = $productCategoriesModel->checkProduct($id);
 
-        return $this->db->affectedRows();
+        if ($checkProduct > 0) {
+            return 0;
+        } else {
+            $builder->delete(['id' => $id]);
+
+            return $this->db->affectedRows();
+        }
     }
 }

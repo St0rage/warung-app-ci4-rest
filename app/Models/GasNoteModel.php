@@ -58,6 +58,17 @@ class GasNoteModel extends Model
         return $builder->get()->getResultArray();
     }
 
+    public function countNote($status)
+    {
+        $builder = $this->db->table('gas_note');
+
+        $builder->select('gas_note.*');
+        $builder->where('status', $status);
+
+        return $builder->get()->getNumRows();
+
+    }
+
     public function getDetail($id)
     {
         $builder = $this->db->table('gas_note');
@@ -67,7 +78,7 @@ class GasNoteModel extends Model
         $builder->join('costumers', 'gas_note.costumer_id = costumers.id');
         $builder->where('gas_note.id', $id);
 
-        return $builder->get()->getResultArray();
+        return $builder->get()->getRowArray();
     }
 
     public function createGas($data)
@@ -123,6 +134,8 @@ class GasNoteModel extends Model
         $builder->where('gas_note.status', $status);
         if ($keyword != '') {
             $builder->like('costumers.name', $keyword);
+        } else {
+            $builder->limit(5, 0);
         }
 
         if ($status == 0) {
